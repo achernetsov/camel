@@ -53,6 +53,7 @@ import org.apache.camel.component.telegram.model.OutgoingSetGameScoreMessage;
 import org.apache.camel.component.telegram.model.OutgoingStickerMessage;
 import org.apache.camel.component.telegram.model.OutgoingTextMessage;
 import org.apache.camel.component.telegram.model.OutgoingVideoMessage;
+import org.apache.camel.component.telegram.model.OutgoingAnimationMessage;
 import org.apache.camel.component.telegram.model.SendLocationMessage;
 import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
@@ -88,6 +89,7 @@ public class TelegramServiceRestBotAPIAdapter implements TelegramService {
         m.put(OutgoingVideoMessage.class, new OutgoingVideoMessageHandler(client, mapper, baseUri, bufferSize));
         m.put(OutgoingDocumentMessage.class, new OutgoingDocumentMessageHandler(client, mapper, baseUri, bufferSize));
         m.put(OutgoingStickerMessage.class, new OutgoingStickerMessageHandler(client, mapper, baseUri, bufferSize));
+        m.put(OutgoingAnimationMessage.class, new OutgoingAnimationMessageHandler(client, mapper, baseUri, bufferSize));
         m.put(OutgoingGameMessage.class, new OutgoingPlainMessageHandler(client, mapper, baseUri + "/sendGame", bufferSize));
         m.put(SendLocationMessage.class,
                 new OutgoingPlainMessageHandler(client, mapper, baseUri + "/sendLocation", bufferSize));
@@ -317,6 +319,20 @@ public class TelegramServiceRestBotAPIAdapter implements TelegramService {
             } else {
                 buildMediaPart("sticker", message.getFilenameWithExtension(), message.getStickerImage());
             }
+        }
+    }
+
+    static class OutgoingAnimationMessageHandler extends OutgoingMessageHandler<OutgoingAnimationMessage> {
+        public OutgoingAnimationMessageHandler(HttpClient client, ObjectMapper mapper,
+                                             String baseUri, int bufferSize) {
+            super(client, mapper, baseUri + "/sendAnimation", null, MessageResult.class, bufferSize);
+        }
+
+        @Override
+        protected void addBody(OutgoingAnimationMessage message) {
+            fillCommonMediaParts(message);
+            buildMediaPart("animation", message.getFileNameWithExtension(), message.getAnimation());
+            buildTextPart("caption", message.getCaption());
         }
     }
 

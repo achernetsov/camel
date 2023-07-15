@@ -47,6 +47,7 @@ import org.apache.camel.component.telegram.model.OutgoingSetGameScoreMessage;
 import org.apache.camel.component.telegram.model.OutgoingStickerMessage;
 import org.apache.camel.component.telegram.model.OutgoingTextMessage;
 import org.apache.camel.component.telegram.model.OutgoingVideoMessage;
+import org.apache.camel.component.telegram.model.OutgoingAnimationMessage;
 import org.apache.camel.component.telegram.model.ReplyKeyboardMarkup;
 import org.apache.camel.component.telegram.model.ReplyKeyboardRemove;
 import org.apache.camel.component.telegram.model.ReplyMarkup;
@@ -416,6 +417,16 @@ public class TelegramServiceIT extends TelegramTestSupport {
 
         MessageResult result = sendMessage(msg);
         Assertions.assertTrue(result.isOk());
+    }
+
+    @Test
+    public void testSendAnimation() throws IOException {
+        byte[] animation = TelegramTestUtil.createSampleAnimation();
+
+        OutgoingAnimationMessage msg = OutgoingAnimationMessage.createWithFile(animation, "animation",
+                "gif", "Test animation", chatId);
+
+        template.requestBody(String.format("telegram://bots?chatId=%s", chatId), msg);
     }
 
     @Test

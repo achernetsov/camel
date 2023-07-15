@@ -78,6 +78,11 @@ public final class TelegramTestUtil {
         return document;
     }
 
+    public static byte[] createSampleAnimation() throws IOException {
+        byte[] animation = readBytesFromStream(TelegramTestUtil.class.getResourceAsStream("/attachments/sample.gif"));
+        return animation;
+    }
+
     public static String stringResource(String path) {
         try (Reader r = new InputStreamReader(
                 TelegramTestUtil.class.getClassLoader().getResourceAsStream(path), StandardCharsets.UTF_8)) {
