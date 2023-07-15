@@ -21,8 +21,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * An outgoing animation message.
- * <a href="https://core.telegram.org/bots/api#sendanimation">API</a>
+ * An outgoing animation message. <a href="https://core.telegram.org/bots/api#sendanimation">API</a>
  */
 public final class OutgoingAnimationMessage extends OutgoingMessage {
 
@@ -55,18 +54,20 @@ public final class OutgoingAnimationMessage extends OutgoingMessage {
     /**
      * Creates {@link OutgoingStickerMessage} based on a given animation file.
      *
-     * @param animationFile       The animation file
-     * @param fileName            Filename to use in multipart/form-data
-     * @param extension           Extension of the file to use in multipart/form-data
-     * @param caption             Optional. Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
-     * @param chatId              Unique identifier for the target chat or username of the target channel
-     * @return Sticker message.
+     * @param  animationFile The animation file
+     * @param  fileName      Filename to use in multipart/form-data
+     * @param  extension     Extension of the file to use in multipart/form-data
+     * @param  caption       Optional. Animation caption (may also be used when resending animation by file_id), 0-1024
+     *                       characters after entities parsing
+     * @param  chatId        Unique identifier for the target chat or username of the target channel
+     * @return               Sticker message.
      */
-    public static OutgoingAnimationMessage createWithFile(byte[] animationFile,
-                                                          String fileName,
-                                                          String extension,
-                                                          String caption,
-                                                          String chatId) {
+    public static OutgoingAnimationMessage createWithFile(
+            byte[] animationFile,
+            String fileName,
+            String extension,
+            String caption,
+            String chatId) {
         Objects.requireNonNull(animationFile);
         Objects.requireNonNull(fileName);
         Objects.requireNonNull(extension);
@@ -88,13 +89,13 @@ public final class OutgoingAnimationMessage extends OutgoingMessage {
     @Override
     public String toString() {
         return "OutgoingAnimationMessage{" +
-                "animation=" + Arrays.toString(animation) +
-                ", caption='" + caption + '\'' +
-                ", fileName='" + fileName + '\'' +
-                ", extension='" + extension + '\'' +
-                ", chatId='" + chatId + '\'' +
-                ", disableNotification=" + disableNotification +
-                ", replyToMessageId=" + replyToMessageId +
-                '}';
+               "animation=" + Arrays.toString(animation) +
+               ", caption='" + caption + '\'' +
+               ", fileName='" + fileName + '\'' +
+               ", extension='" + extension + '\'' +
+               ", chatId='" + chatId + '\'' +
+               ", disableNotification=" + disableNotification +
+               ", replyToMessageId=" + replyToMessageId +
+               '}';
     }
 }

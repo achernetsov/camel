@@ -41,6 +41,7 @@ import org.apache.camel.component.telegram.model.EditMessageReplyMarkupMessage;
 import org.apache.camel.component.telegram.model.EditMessageTextMessage;
 import org.apache.camel.component.telegram.model.MessageResult;
 import org.apache.camel.component.telegram.model.MessageResultGameScores;
+import org.apache.camel.component.telegram.model.OutgoingAnimationMessage;
 import org.apache.camel.component.telegram.model.OutgoingAnswerInlineQuery;
 import org.apache.camel.component.telegram.model.OutgoingAudioMessage;
 import org.apache.camel.component.telegram.model.OutgoingCallbackQueryMessage;
@@ -53,7 +54,6 @@ import org.apache.camel.component.telegram.model.OutgoingSetGameScoreMessage;
 import org.apache.camel.component.telegram.model.OutgoingStickerMessage;
 import org.apache.camel.component.telegram.model.OutgoingTextMessage;
 import org.apache.camel.component.telegram.model.OutgoingVideoMessage;
-import org.apache.camel.component.telegram.model.OutgoingAnimationMessage;
 import org.apache.camel.component.telegram.model.SendLocationMessage;
 import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
@@ -324,7 +324,7 @@ public class TelegramServiceRestBotAPIAdapter implements TelegramService {
 
     static class OutgoingAnimationMessageHandler extends OutgoingMessageHandler<OutgoingAnimationMessage> {
         public OutgoingAnimationMessageHandler(HttpClient client, ObjectMapper mapper,
-                                             String baseUri, int bufferSize) {
+                                               String baseUri, int bufferSize) {
             super(client, mapper, baseUri + "/sendAnimation", null, MessageResult.class, bufferSize);
         }
 
