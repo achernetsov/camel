@@ -336,8 +336,14 @@ public class TelegramServiceRestBotAPIAdapter implements TelegramService {
         @Override
         protected void addBody(OutgoingAnimationMessage message) {
             fillCommonMediaParts(message);
-            buildMediaPart("animation", message.getFileNameWithExtension(), message.getAnimation());
-            buildTextPart("caption", message.getCaption());
+            if (StringUtils.isNoneBlank(message.getAnimationString())) {
+                buildTextPart("animation", message.getAnimationString());
+                buildTextPart("caption", message.getCaption());
+            } else {
+                buildMediaPart("animation", message.getFileNameWithExtension(), message.getAnimationFile());
+                buildTextPart("caption", message.getCaption());
+            }
+
         }
     }
 
