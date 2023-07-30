@@ -197,13 +197,22 @@ public class TelegramServiceIT extends TelegramTestSupport {
     }
 
     @Test
-    public void testSendPhoto() throws IOException {
+    public void testSendPhotoFile() throws IOException {
         byte[] image = TelegramTestUtil.createSampleImage("PNG");
 
         OutgoingPhotoMessage msg = new OutgoingPhotoMessage();
         msg.setPhoto(image);
         msg.setChatId(chatId);
         msg.setFilenameWithExtension("file.png");
+
+        template.requestBody(String.format("telegram://bots?chatId=%s", chatId), msg);
+    }
+
+    @Test
+    public void testSendPhotoUrl() throws IOException {
+        OutgoingPhotoMessage msg = new OutgoingPhotoMessage();
+        msg.setPhotoStr("https://www.apache.org/logos/res/camel/camel-1.png");
+        msg.setChatId(chatId);
 
         template.requestBody(String.format("telegram://bots?chatId=%s", chatId), msg);
     }

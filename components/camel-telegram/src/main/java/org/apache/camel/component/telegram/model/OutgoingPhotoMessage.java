@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * An outgoing photo message.
+ *
+ * <a href="https://core.telegram.org/bots/api#sendphoto">Telegram API</a>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OutgoingPhotoMessage extends OutgoingMessage {
@@ -28,6 +30,8 @@ public class OutgoingPhotoMessage extends OutgoingMessage {
     private static final long serialVersionUID = -6730785675407947090L;
 
     private byte[] photo;
+
+    private String photoStr;
 
     private String filenameWithExtension;
 
@@ -45,6 +49,20 @@ public class OutgoingPhotoMessage extends OutgoingMessage {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public String getPhotoStr() {
+        return photoStr;
+    }
+
+    /**
+     * Set file_id or photo url
+     * On sending will take priority over sending bytes (if photo field is set it will be ignored)
+     *
+     * @param photoStr file_id or photo url
+     */
+    public void setPhotoStr(String photoStr) {
+        this.photoStr = photoStr;
     }
 
     public String getFilenameWithExtension() {
@@ -79,6 +97,7 @@ public class OutgoingPhotoMessage extends OutgoingMessage {
     public String toString() {
         final StringBuilder sb = new StringBuilder("OutgoingPhotoMessage{");
         sb.append("photo(length)=").append(photo != null ? photo.length : null);
+        sb.append("photoStr=").append(photoStr);
         sb.append(", filenameWithExtension='").append(filenameWithExtension).append('\'');
         sb.append(", caption='").append(caption).append('\'');
         sb.append(", replyMarkup='").append(replyMarkup).append('\'');

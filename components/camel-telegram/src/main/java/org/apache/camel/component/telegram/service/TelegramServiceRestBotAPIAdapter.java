@@ -60,6 +60,7 @@ import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
 import org.apache.camel.component.telegram.model.UpdateResult;
 import org.apache.camel.component.telegram.model.WebhookResult;
 import org.apache.camel.util.URISupport;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -298,7 +299,11 @@ public class TelegramServiceRestBotAPIAdapter implements TelegramService {
         @Override
         protected void addBody(OutgoingPhotoMessage message) {
             fillCommonMediaParts(message);
-            buildMediaPart("photo", message.getFilenameWithExtension(), message.getPhoto());
+            if (StringUtils.isNoneBlank(message.getPhotoStr())){
+                buildTextPart("photo", message.getPhotoStr());
+            } else {
+                buildMediaPart("photo", message.getFilenameWithExtension(), message.getPhoto());
+            }
             buildTextPart("caption", message.getCaption());
             buildTextPart("reply_markup", message.replyMarkupJson());
         }
