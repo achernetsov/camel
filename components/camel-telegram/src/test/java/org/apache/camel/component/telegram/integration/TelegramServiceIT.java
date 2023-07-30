@@ -440,8 +440,6 @@ public class TelegramServiceIT extends TelegramTestSupport {
 
     @Test
     public void testSendAnimationString() throws IOException {
-        byte[] animation = TelegramTestUtil.createSampleAnimation();
-
         OutgoingAnimationMessage msg = OutgoingAnimationMessage.createWithString("https://media.tenor.com/bCfpwMjfAi0AAAAC/cat-typing.gif", "Test animation");
 
         template.requestBody(String.format("telegram://bots?chatId=%s", chatId), msg);
